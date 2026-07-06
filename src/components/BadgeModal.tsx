@@ -20,7 +20,7 @@ export function BadgeModal({ league, onClose }: Props) {
     <Dialog.Root open={!!league} onOpenChange={(open) => !open && onClose()}>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 bg-black/40 backdrop-blur-sm" />
-        <Dialog.Content className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-2xl shadow-xl p-8 w-full max-w-sm flex flex-col items-center gap-6 outline-none">
+        <Dialog.Content className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-2xl shadow-xl p-8 w-[calc(100%-2rem)] max-w-sm flex flex-col items-center gap-6 outline-none">
           <div className="w-full flex items-start justify-between gap-4">
             <div>
               <Dialog.Title className="text-lg font-bold text-gray-900 leading-snug">

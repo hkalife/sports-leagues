@@ -17,7 +17,7 @@ function App() {
         selectedSport={selectedSport}
         onSportChange={setSelectedSport}
       />
-      <div className="max-w-6xl mx-auto py-6">
+      <div className="max-w-6xl mx-auto px-4 py-6">
         <PageTitle />
         <LeagueList
           onViewBadge={setSelectedLeague}

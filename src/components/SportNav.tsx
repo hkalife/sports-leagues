@@ -30,8 +30,8 @@ export function SportNav({ selectedSport, onSportChange }: Props) {
   };
 
   return (
-    <nav className="bg-white border-b border-gray-200 h-11">
-      <div className="max-w-6xl mx-auto h-full flex items-center gap-6">
+    <nav className="bg-white border-b border-gray-200 h-11 overflow-x-auto">
+      <div className="max-w-6xl mx-auto px-4 h-full flex items-center gap-6 min-w-max lg:min-w-0">
         <span className="text-gray-400 text-xs font-semibold tracking-widest uppercase mr-2">
           {t('nav.mostPopular')}
         </span>

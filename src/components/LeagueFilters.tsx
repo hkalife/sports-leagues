@@ -18,7 +18,7 @@ export function LeagueFilters({
   const { t, tSport } = useTranslation();
 
   return (
-    <div className="flex gap-3 mb-4">
+    <div className="flex flex-col sm:flex-row gap-3 mb-4">
       <div className="flex-1 flex items-center gap-2 border border-gray-200 rounded-lg px-3 py-2.5 bg-white">
         <svg
           className="w-4 h-4 text-gray-400 shrink-0"
@@ -45,7 +45,7 @@ export function LeagueFilters({
         <select
           value={sport}
           onChange={(e) => onSportChange(e.target.value)}
-          className="appearance-none border border-gray-200 rounded-lg px-4 py-2.5 pr-10 text-sm text-gray-700 bg-white outline-none cursor-pointer min-w-44"
+          className="appearance-none border border-gray-200 rounded-lg px-4 py-2.5 pr-10 text-sm text-gray-700 bg-white outline-none cursor-pointer w-full sm:min-w-44 sm:w-auto"
         >
           <option value="">{t('filters.allSports')}</option>
           {sports.map((s) => (

@@ -11,7 +11,7 @@ export function Header() {
 
   return (
     <header className="bg-red-600 h-14">
-      <div className="max-w-6xl mx-auto h-full flex items-center justify-between">
+      <div className="max-w-6xl mx-auto px-4 h-full flex items-center justify-between">
         <span className="text-white font-bold text-xl tracking-tight italic">
           {t('header.logo')}
         </span>

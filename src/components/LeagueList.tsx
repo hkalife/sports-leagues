@@ -84,7 +84,7 @@ export function LeagueList({
         {t('list.count', { count: filtered.length })}
       </p>
 
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {paginated.map((league) => (
           <LeagueCard
             key={league.idLeague}
@@ -95,7 +95,7 @@ export function LeagueList({
       </div>
 
       {totalPages > 1 && (
-        <div className="flex items-center justify-between mt-6 pt-4 border-t border-gray-100">
+        <div className="flex items-center justify-between mt-6 pt-4 border-t border-gray-100 flex-wrap gap-3">
           <div className="flex items-center gap-2">
             <button
               onClick={() => setPage((p) => p - 1)}
@@ -104,19 +104,24 @@ export function LeagueList({
             >
               {t('list.previous')}
             </button>
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
-              <button
-                key={p}
-                onClick={() => setPage(p)}
-                className={`w-8 h-8 rounded text-sm font-medium cursor-pointer ${
-                  p === page
-                    ? 'bg-red-500 text-white'
-                    : 'text-gray-700 hover:bg-gray-100'
-                }`}
-              >
-                {p}
-              </button>
-            ))}
+            <div className="hidden sm:flex items-center gap-2">
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
+                <button
+                  key={p}
+                  onClick={() => setPage(p)}
+                  className={`w-8 h-8 rounded text-sm font-medium cursor-pointer ${
+                    p === page
+                      ? 'bg-red-500 text-white'
+                      : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                >
+                  {p}
+                </button>
+              ))}
+            </div>
+            <span className="sm:hidden text-sm text-gray-500">
+              {page} / {totalPages}
+            </span>
             <button
               onClick={() => setPage((p) => p + 1)}
               disabled={page === totalPages}
