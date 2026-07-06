@@ -1,9 +1,5 @@
-type League = {
-  idLeague: string;
-  strLeague: string;
-  strSport: string;
-  strLeagueAlternate?: string;
-};
+import { useTranslation } from '../hooks/useTranslation';
+import type { League } from '../types/league';
 
 const SPORT_STYLES: Record<string, string> = {
   soccer: 'bg-green-50 text-green-700 border-green-200',
@@ -28,6 +24,8 @@ type Props = {
 };
 
 export function LeagueCard({ league, onViewBadge }: Props) {
+  const { t } = useTranslation();
+
   return (
     <div className="bg-white border border-gray-200 rounded-xl p-5 flex flex-col gap-3">
       <span
@@ -49,10 +47,8 @@ export function LeagueCard({ league, onViewBadge }: Props) {
         onClick={() => onViewBadge(league)}
         className="self-start text-sm text-red-500 font-medium cursor-pointer hover:text-red-600"
       >
-        View season badge →
+        {t('card.viewBadge')}
       </button>
     </div>
   );
 }
-
-export type { League };

@@ -1,127 +1,39 @@
-import { useState } from 'react';
-import { LeagueCard, type League } from './LeagueCard';
+import { useState, useMemo } from 'react';
+import { useLeagues } from '../hooks/useLeagues';
+import { useTranslation } from '../hooks/useTranslation';
+import { LeagueCard } from './LeagueCard';
 import { LeagueFilters } from './LeagueFilters';
+import type { League } from '../types/league';
 
 const PAGE_SIZE = 12;
 
-const MOCK_LEAGUES: League[] = [
-  {
-    idLeague: '4328',
-    strLeague: 'English Premier League',
-    strSport: 'Football',
-  },
-  {
-    idLeague: '4329',
-    strLeague: 'English League Championship',
-    strSport: 'Football',
-  },
-  {
-    idLeague: '4330',
-    strLeague: 'Scottish Premier League',
-    strSport: 'Football',
-  },
-  { idLeague: '4331', strLeague: 'German Bundesliga', strSport: 'Football' },
-  { idLeague: '4332', strLeague: 'Italian Serie A', strSport: 'Football' },
-  {
-    idLeague: '4334',
-    strLeague: 'French Ligue 1',
-    strSport: 'Football',
-    strLeagueAlternate: 'Ligue 1 Uber Eats',
-  },
-  {
-    idLeague: '4335',
-    strLeague: 'Spanish La Liga',
-    strSport: 'Football',
-    strLeagueAlternate: 'LaLiga Santander',
-  },
-  {
-    idLeague: '4346',
-    strLeague: 'American Major League Soccer',
-    strSport: 'Football',
-    strLeagueAlternate: 'MLS',
-  },
-  {
-    idLeague: '4387',
-    strLeague: 'NBA',
-    strSport: 'Basketball',
-    strLeagueAlternate: 'National Basketball Association',
-  },
-  {
-    idLeague: '4389',
-    strLeague: 'NCAA Division I Basketball',
-    strSport: 'Basketball',
-    strLeagueAlternate: "NCAA Men's Basketball",
-  },
-  {
-    idLeague: '4380',
-    strLeague: 'NHL',
-    strSport: 'Ice Hockey',
-    strLeagueAlternate: 'National Hockey League',
-  },
-  {
-    idLeague: '4391',
-    strLeague: 'NFL',
-    strSport: 'American Football',
-    strLeagueAlternate: 'National Football League',
-  },
-  {
-    idLeague: '4424',
-    strLeague: 'MLB',
-    strSport: 'Baseball',
-    strLeagueAlternate: 'Major League Baseball',
-  },
-  {
-    idLeague: '4450',
-    strLeague: 'Formula 1',
-    strSport: 'Motorsport',
-    strLeagueAlternate: 'F1',
-  },
-  {
-    idLeague: '4394',
-    strLeague: 'Australian Football League',
-    strSport: 'American Football',
-    strLeagueAlternate: 'AFL',
-  },
-  {
-    idLeague: '4403',
-    strLeague: 'UFC',
-    strSport: 'Fighting',
-    strLeagueAlternate: 'Ultimate Fighting Championship',
-  },
-  {
-    idLeague: '4410',
-    strLeague: 'ATP World Tour',
-    strSport: 'Tennis',
-    strLeagueAlternate: 'ATP',
-  },
-  {
-    idLeague: '4411',
-    strLeague: 'WTA Tour',
-    strSport: 'Tennis',
-    strLeagueAlternate: 'WTA',
-  },
-  { idLeague: '4430', strLeague: 'PGA Tour', strSport: 'Golf' },
-  {
-    idLeague: '4440',
-    strLeague: 'NHL Eastern Conference',
-    strSport: 'Ice Hockey',
-  },
-];
+type Props = {
+  onViewBadge: (league: League) => void;
+};
 
-const ALL_SPORTS = [...new Set(MOCK_LEAGUES.map((l) => l.strSport))].sort();
-
-export function LeagueList() {
+export function LeagueList({ onViewBadge }: Props) {
+  const { data: leagues = [], isLoading, isError } = useLeagues();
+  const { t } = useTranslation();
   const [search, setSearch] = useState('');
   const [sport, setSport] = useState('');
   const [page, setPage] = useState(1);
 
-  const filtered = MOCK_LEAGUES.filter((l) => {
-    const matchesSearch = l.strLeague
-      .toLowerCase()
-      .includes(search.toLowerCase());
-    const matchesSport = sport === '' || l.strSport === sport;
-    return matchesSearch && matchesSport;
-  });
+  const sports = useMemo(
+    () => [...new Set(leagues.map((l) => l.strSport))].sort(),
+    [leagues],
+  );
+
+  const filtered = useMemo(
+    () =>
+      leagues.filter((l) => {
+        const matchesSearch = l.strLeague
+          .toLowerCase()
+          .includes(search.toLowerCase());
+        const matchesSport = sport === '' || l.strSport === sport;
+        return matchesSearch && matchesSport;
+      }),
+    [leagues, search, sport],
+  );
 
   const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
   const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
@@ -132,6 +44,22 @@ export function LeagueList() {
       setPage(1);
     };
 
+  if (isLoading) {
+    return (
+      <div className="bg-white rounded-2xl border border-gray-100 p-12 text-center text-gray-400 text-sm">
+        {t('list.loading')}
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="bg-white rounded-2xl border border-gray-100 p-12 text-center text-red-400 text-sm">
+        {t('list.error')}
+      </div>
+    );
+  }
+
   return (
     <div className="bg-white rounded-2xl border border-gray-100 p-6">
       <LeagueFilters
@@ -139,17 +67,19 @@ export function LeagueList() {
         onSearchChange={handleFilterChange(setSearch)}
         sport={sport}
         onSportChange={handleFilterChange(setSport)}
-        sports={ALL_SPORTS}
+        sports={sports}
       />
 
-      <p className="text-sm text-gray-400 mb-4">{filtered.length} leagues</p>
+      <p className="text-sm text-gray-400 mb-4">
+        {t('list.count', { count: filtered.length })}
+      </p>
 
       <div className="grid grid-cols-4 gap-4">
         {paginated.map((league) => (
           <LeagueCard
             key={league.idLeague}
             league={league}
-            onViewBadge={() => {}}
+            onViewBadge={onViewBadge}
           />
         ))}
       </div>
@@ -162,7 +92,7 @@ export function LeagueList() {
               disabled={page === 1}
               className="text-sm text-gray-500 px-2 py-1 disabled:opacity-40 cursor-pointer disabled:cursor-default"
             >
-              ‹ Previous
+              {t('list.previous')}
             </button>
             {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
               <button
@@ -182,13 +112,15 @@ export function LeagueList() {
               disabled={page === totalPages}
               className="text-sm text-gray-500 px-2 py-1 disabled:opacity-40 cursor-pointer disabled:cursor-default"
             >
-              Next ›
+              {t('list.next')}
             </button>
           </div>
           <span className="text-sm text-gray-400">
-            Showing {(page - 1) * PAGE_SIZE + 1}–
-            {Math.min(page * PAGE_SIZE, filtered.length)} of {filtered.length}{' '}
-            results
+            {t('list.showing', {
+              from: (page - 1) * PAGE_SIZE + 1,
+              to: Math.min(page * PAGE_SIZE, filtered.length),
+              total: filtered.length,
+            })}
           </span>
         </div>
       )}

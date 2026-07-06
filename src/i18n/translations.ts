@@ -1,0 +1,36 @@
+export const translations = {
+  en: {
+    'header.logo': 'Sports Leagues',
+    'nav.mostPopular': 'Most Popular',
+    'page.title': 'Find a league',
+    'page.subtitle':
+      "Browse and filter every league across the world's sports.",
+    'filters.searchPlaceholder': 'Search leagues by name...',
+    'filters.allSports': 'All sports',
+    'list.count': '{count} leagues',
+    'list.loading': 'Loading leagues...',
+    'list.error': 'Failed to load leagues. Please try again.',
+    'list.previous': '‹ Previous',
+    'list.next': 'Next ›',
+    'list.showing': 'Showing {from}–{to} of {total} results',
+    'card.viewBadge': 'View season badge →',
+  },
+  pt: {
+    'header.logo': 'Sports Leagues',
+    'nav.mostPopular': 'Mais Populares',
+    'page.title': 'Encontre uma liga',
+    'page.subtitle': 'Navegue e filtre todas as ligas esportivas do mundo.',
+    'filters.searchPlaceholder': 'Buscar ligas pelo nome...',
+    'filters.allSports': 'Todos os esportes',
+    'list.count': '{count} ligas',
+    'list.loading': 'Carregando ligas...',
+    'list.error': 'Falha ao carregar ligas. Tente novamente.',
+    'list.previous': '‹ Anterior',
+    'list.next': 'Próxima ›',
+    'list.showing': 'Mostrando {from}–{to} de {total} resultados',
+    'card.viewBadge': 'Ver badge da temporada →',
+  },
+};
+
+export type Language = keyof typeof translations;
+export type TranslationKey = keyof typeof translations.en;

@@ -1,3 +1,5 @@
+import { useTranslation } from '../hooks/useTranslation';
+
 const SPORTS = [
   'Football',
   'American Football',
@@ -7,11 +9,13 @@ const SPORTS = [
 ];
 
 export function SportNav() {
+  const { t } = useTranslation();
+
   return (
     <nav className="bg-white border-b border-gray-200 h-11">
       <div className="max-w-6xl mx-auto h-full flex items-center gap-6">
         <span className="text-gray-400 text-xs font-semibold tracking-widest uppercase mr-2">
-          Most Popular
+          {t('nav.mostPopular')}
         </span>
         {SPORTS.map((sport, index) => (
           <button

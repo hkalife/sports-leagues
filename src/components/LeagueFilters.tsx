@@ -1,3 +1,5 @@
+import { useTranslation } from '../hooks/useTranslation';
+
 type Props = {
   search: string;
   onSearchChange: (value: string) => void;
@@ -13,6 +15,8 @@ export function LeagueFilters({
   onSportChange,
   sports,
 }: Props) {
+  const { t } = useTranslation();
+
   return (
     <div className="flex gap-3 mb-4">
       <div className="flex-1 flex items-center gap-2 border border-gray-200 rounded-lg px-3 py-2.5 bg-white">
@@ -31,7 +35,7 @@ export function LeagueFilters({
         </svg>
         <input
           type="text"
-          placeholder="Search leagues by name..."
+          placeholder={t('filters.searchPlaceholder')}
           value={search}
           onChange={(e) => onSearchChange(e.target.value)}
           className="flex-1 text-sm text-gray-700 placeholder-gray-400 outline-none bg-transparent"
@@ -43,7 +47,7 @@ export function LeagueFilters({
           onChange={(e) => onSportChange(e.target.value)}
           className="appearance-none border border-gray-200 rounded-lg px-4 py-2.5 pr-10 text-sm text-gray-700 bg-white outline-none cursor-pointer min-w-44"
         >
-          <option value="">All sports</option>
+          <option value="">{t('filters.allSports')}</option>
           {sports.map((s) => (
             <option key={s} value={s}>
               {s}
