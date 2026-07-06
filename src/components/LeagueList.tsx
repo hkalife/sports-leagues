@@ -9,13 +9,18 @@ const PAGE_SIZE = 12;
 
 type Props = {
   onViewBadge: (league: League) => void;
+  selectedSport: string;
+  onSportChange: (sport: string) => void;
 };
 
-export function LeagueList({ onViewBadge }: Props) {
+export function LeagueList({
+  onViewBadge,
+  selectedSport,
+  onSportChange,
+}: Props) {
   const { data: leagues = [], isLoading, isError } = useLeagues();
   const { t } = useTranslation();
   const [search, setSearch] = useState('');
-  const [sport, setSport] = useState('');
   const [page, setPage] = useState(1);
 
   const sports = useMemo(
@@ -29,20 +34,25 @@ export function LeagueList({ onViewBadge }: Props) {
         const matchesSearch = l.strLeague
           .toLowerCase()
           .includes(search.toLowerCase());
-        const matchesSport = sport === '' || l.strSport === sport;
+        const matchesSport =
+          selectedSport === '' || l.strSport === selectedSport;
         return matchesSearch && matchesSport;
       }),
-    [leagues, search, sport],
+    [leagues, search, selectedSport],
   );
 
   const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
   const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
-  const handleFilterChange =
-    (setter: (v: string) => void) => (value: string) => {
-      setter(value);
-      setPage(1);
-    };
+  const handleSearchChange = (value: string) => {
+    setSearch(value);
+    setPage(1);
+  };
+
+  const handleSportChange = (value: string) => {
+    onSportChange(value);
+    setPage(1);
+  };
 
   if (isLoading) {
     return (
@@ -64,9 +74,9 @@ export function LeagueList({ onViewBadge }: Props) {
     <div className="bg-white rounded-2xl border border-gray-100 p-6">
       <LeagueFilters
         search={search}
-        onSearchChange={handleFilterChange(setSearch)}
-        sport={sport}
-        onSportChange={handleFilterChange(setSport)}
+        onSearchChange={handleSearchChange}
+        sport={selectedSport}
+        onSportChange={handleSportChange}
         sports={sports}
       />
 

@@ -24,14 +24,14 @@ type Props = {
 };
 
 export function LeagueCard({ league, onViewBadge }: Props) {
-  const { t } = useTranslation();
+  const { t, tSport } = useTranslation();
 
   return (
     <div className="bg-white border border-gray-200 rounded-xl p-5 flex flex-col gap-3">
       <span
         className={`self-start text-xs font-bold uppercase tracking-wide px-2.5 py-1 rounded border ${getSportStyle(league.strSport)}`}
       >
-        {league.strSport}
+        {tSport(league.strSport)}
       </span>
       <div className="flex-1">
         <h3 className="font-bold text-gray-900 text-base leading-snug">

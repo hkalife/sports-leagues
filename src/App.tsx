@@ -8,14 +8,22 @@ import type { League } from './types/league';
 
 function App() {
   const [selectedLeague, setSelectedLeague] = useState<League | null>(null);
+  const [selectedSport, setSelectedSport] = useState('');
 
   return (
     <div className="min-h-screen bg-gray-100">
       <Header />
-      <SportNav />
+      <SportNav
+        selectedSport={selectedSport}
+        onSportChange={setSelectedSport}
+      />
       <div className="max-w-6xl mx-auto py-6">
         <PageTitle />
-        <LeagueList onViewBadge={setSelectedLeague} />
+        <LeagueList
+          onViewBadge={setSelectedLeague}
+          selectedSport={selectedSport}
+          onSportChange={setSelectedSport}
+        />
       </div>
       <BadgeModal
         league={selectedLeague}

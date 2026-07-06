@@ -42,3 +42,40 @@ export const translations = {
 
 export type Language = keyof typeof translations;
 export type TranslationKey = keyof typeof translations.en;
+
+export const sportNames: Record<Language, Record<string, string>> = {
+  en: {
+    Soccer: 'Soccer',
+    Basketball: 'Basketball',
+    'Ice Hockey': 'Ice Hockey',
+    'American Football': 'American Football',
+    Baseball: 'Baseball',
+    Tennis: 'Tennis',
+    Motorsport: 'Motorsport',
+    Golf: 'Golf',
+    Rugby: 'Rugby',
+    Cricket: 'Cricket',
+    Fighting: 'Fighting',
+    Volleyball: 'Volleyball',
+    Handball: 'Handball',
+    Swimming: 'Swimming',
+    Athletics: 'Athletics',
+  },
+  pt: {
+    Soccer: 'Futebol',
+    Basketball: 'Basquete',
+    'Ice Hockey': 'Hóquei no Gelo',
+    'American Football': 'Futebol Americano',
+    Baseball: 'Beisebol',
+    Tennis: 'Tênis',
+    Motorsport: 'Automobilismo',
+    Golf: 'Golfe',
+    Rugby: 'Rugby',
+    Cricket: 'Críquete',
+    Fighting: 'Lutas',
+    Volleyball: 'Vôlei',
+    Handball: 'Handebol',
+    Swimming: 'Natação',
+    Athletics: 'Atletismo',
+  },
+};

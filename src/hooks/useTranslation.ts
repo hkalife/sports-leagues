@@ -1,5 +1,5 @@
 import { useLanguage } from './useLanguage';
-import { translations } from '../i18n/translations';
+import { translations, sportNames } from '../i18n/translations';
 import type { TranslationKey } from '../i18n/translations';
 
 export function useTranslation() {
@@ -19,5 +19,9 @@ export function useTranslation() {
     return text;
   }
 
-  return { t, language, setLanguage };
+  function tSport(sport: string): string {
+    return sportNames[language][sport] ?? sport;
+  }
+
+  return { t, tSport, language, setLanguage };
 }

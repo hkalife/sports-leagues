@@ -15,7 +15,7 @@ export function LeagueFilters({
   onSportChange,
   sports,
 }: Props) {
-  const { t } = useTranslation();
+  const { t, tSport } = useTranslation();
 
   return (
     <div className="flex gap-3 mb-4">
@@ -50,7 +50,7 @@ export function LeagueFilters({
           <option value="">{t('filters.allSports')}</option>
           {sports.map((s) => (
             <option key={s} value={s}>
-              {s}
+              {tSport(s)}
             </option>
           ))}
         </select>
