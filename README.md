@@ -20,6 +20,10 @@ A single-page application that lets you browse and filter sports leagues from ar
 - **TanStack React Query v5** — data fetching and caching
 - **Radix UI** — Dialog (badge modal) and Select primitives
 
+## Live Demo
+
+[https://sports-leagues-two.vercel.app/](https://sports-leagues-two.vercel.app/)
+
 ## Getting Started
 
 ```bash
