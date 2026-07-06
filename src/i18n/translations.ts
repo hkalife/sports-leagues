@@ -14,6 +14,10 @@ export const translations = {
     'list.next': 'Next ›',
     'list.showing': 'Showing {from}–{to} of {total} results',
     'card.viewBadge': 'View season badge →',
+    'modal.season': 'Season',
+    'modal.noBadge': 'No badge available for this league.',
+    'modal.loading': 'Loading badge...',
+    'modal.close': 'Close',
   },
   pt: {
     'header.logo': 'Sports Leagues',
@@ -29,6 +33,10 @@ export const translations = {
     'list.next': 'Próxima ›',
     'list.showing': 'Mostrando {from}–{to} de {total} resultados',
     'card.viewBadge': 'Ver badge da temporada →',
+    'modal.season': 'Temporada',
+    'modal.noBadge': 'Nenhum badge disponível para esta liga.',
+    'modal.loading': 'Carregando badge...',
+    'modal.close': 'Fechar',
   },
 };
 

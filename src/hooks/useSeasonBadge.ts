@@ -6,5 +6,6 @@ export function useSeasonBadge(leagueId: string | null) {
     queryKey: ['badge', leagueId],
     queryFn: () => fetchSeasonBadge(leagueId!),
     enabled: !!leagueId,
+    staleTime: Infinity,
   });
 }

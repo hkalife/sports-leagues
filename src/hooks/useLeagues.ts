@@ -5,5 +5,6 @@ export function useLeagues() {
   return useQuery({
     queryKey: ['leagues'],
     queryFn: fetchAllLeagues,
+    staleTime: Infinity,
   });
 }
