@@ -1,7 +1,7 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import { useSeasonBadge } from '../hooks/useSeasonBadge';
 import { useTranslation } from '../hooks/useTranslation';
-import { Spinner } from './Spinner';
+import { Spinner } from './shared/Spinner';
 import type { League } from '../types/league';
 
 type Props = {

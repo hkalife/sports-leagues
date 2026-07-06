@@ -3,7 +3,7 @@ import { useLeagues } from '../hooks/useLeagues';
 import { useTranslation } from '../hooks/useTranslation';
 import { LeagueCard } from './LeagueCard';
 import { LeagueFilters } from './LeagueFilters';
-import { Spinner } from './Spinner';
+import { Spinner } from './shared/Spinner';
 import type { League } from '../types/league';
 
 const PAGE_SIZE = 12;
