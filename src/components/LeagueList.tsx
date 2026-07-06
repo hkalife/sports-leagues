@@ -3,6 +3,7 @@ import { useLeagues } from '../hooks/useLeagues';
 import { useTranslation } from '../hooks/useTranslation';
 import { LeagueCard } from './LeagueCard';
 import { LeagueFilters } from './LeagueFilters';
+import { Spinner } from './Spinner';
 import type { League } from '../types/league';
 
 const PAGE_SIZE = 12;
@@ -56,8 +57,9 @@ export function LeagueList({
 
   if (isLoading) {
     return (
-      <div className="bg-white rounded-2xl border border-gray-100 p-12 text-center text-gray-400 text-sm">
-        {t('list.loading')}
+      <div className="bg-white rounded-2xl border border-gray-100 p-12 flex flex-col items-center gap-3 text-gray-400">
+        <Spinner size={32} className="text-red-400" />
+        <span className="text-sm">{t('list.loading')}</span>
       </div>
     );
   }
@@ -85,10 +87,11 @@ export function LeagueList({
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {paginated.map((league) => (
+        {paginated.map((league, index) => (
           <LeagueCard
             key={league.idLeague}
             league={league}
+            index={index}
             onViewBadge={onViewBadge}
           />
         ))}

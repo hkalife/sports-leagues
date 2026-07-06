@@ -20,14 +20,19 @@ function getSportStyle(sport: string) {
 
 type Props = {
   league: League;
+  index: number;
   onViewBadge: (league: League) => void;
 };
 
-export function LeagueCard({ league, onViewBadge }: Props) {
+export function LeagueCard({ league, index, onViewBadge }: Props) {
   const { t, tSport } = useTranslation();
 
   return (
-    <div className="bg-white border border-gray-200 rounded-xl p-5 flex flex-col gap-3">
+    <div
+      onClick={() => onViewBadge(league)}
+      style={{ animationDelay: `${index * 0.04}s` }}
+      className="animate-fade-in-up bg-white border border-gray-200 rounded-xl p-5 flex flex-col gap-3 cursor-pointer hover:shadow-md hover:border-gray-300 transition-all duration-200"
+    >
       <span
         className={`self-start text-xs font-bold uppercase tracking-wide px-2.5 py-1 rounded border ${getSportStyle(league.strSport)}`}
       >
@@ -43,12 +48,9 @@ export function LeagueCard({ league, onViewBadge }: Props) {
           </p>
         )}
       </div>
-      <button
-        onClick={() => onViewBadge(league)}
-        className="self-start text-sm text-red-500 font-medium cursor-pointer hover:text-red-600"
-      >
+      <span className="self-start text-sm text-red-500 font-medium">
         {t('card.viewBadge')}
-      </button>
+      </span>
     </div>
   );
 }

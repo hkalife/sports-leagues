@@ -1,6 +1,7 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import { useSeasonBadge } from '../hooks/useSeasonBadge';
 import { useTranslation } from '../hooks/useTranslation';
+import { Spinner } from './Spinner';
 import type { League } from '../types/league';
 
 type Props = {
@@ -19,8 +20,8 @@ export function BadgeModal({ league, onClose }: Props) {
   return (
     <Dialog.Root open={!!league} onOpenChange={(open) => !open && onClose()}>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 bg-black/40 backdrop-blur-sm" />
-        <Dialog.Content className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-2xl shadow-xl p-8 w-[calc(100%-2rem)] max-w-sm flex flex-col items-center gap-6 outline-none">
+        <Dialog.Overlay className="animate-overlay-show fixed inset-0 bg-black/40 backdrop-blur-sm" />
+        <Dialog.Content className="animate-content-show fixed left-1/2 top-1/2 bg-white rounded-2xl shadow-xl p-8 w-[calc(100%-2rem)] max-w-sm flex flex-col items-center gap-6 outline-none">
           <div className="w-full flex items-start justify-between gap-4">
             <div>
               <Dialog.Title className="text-lg font-bold text-gray-900 leading-snug">
@@ -34,23 +35,21 @@ export function BadgeModal({ league, onClose }: Props) {
             </div>
             <Dialog.Close
               onClick={onClose}
-              className="text-gray-400 hover:text-gray-600 cursor-pointer text-xl leading-none mt-0.5"
+              className="text-gray-400 hover:text-gray-600 cursor-pointer text-xl leading-none mt-0.5 focus:outline-none"
             >
               ✕
             </Dialog.Close>
           </div>
 
-          <div className="w-full flex flex-col items-center gap-2">
-            {isLoading && (
-              <p className="text-sm text-gray-400 py-8">{t('modal.loading')}</p>
-            )}
+          <div className="w-full flex flex-col items-center gap-2 min-h-32 justify-center">
+            {isLoading && <Spinner size={32} className="text-red-400" />}
 
             {!isLoading && firstWithBadge && (
               <>
                 <img
                   src={firstWithBadge.strBadge}
                   alt={league?.strLeague}
-                  className="w-48 h-48 object-contain"
+                  className="animate-fade-in-scale w-48 h-48 object-contain"
                 />
                 <p className="text-xs text-gray-400">
                   {t('modal.season')} {firstWithBadge.strSeason}
@@ -59,7 +58,7 @@ export function BadgeModal({ league, onClose }: Props) {
             )}
 
             {!isLoading && !firstWithBadge && (
-              <p className="text-sm text-gray-400 py-8">{t('modal.noBadge')}</p>
+              <p className="text-sm text-gray-400">{t('modal.noBadge')}</p>
             )}
           </div>
 
