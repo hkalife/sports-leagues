@@ -22,11 +22,11 @@ The UI was inspired by [SportyBet](https://sportybet.com), using a similar color
 
 No external state management library (Redux, Zustand, etc.) was used. The project relies on three intentional layers:
 
-| Layer                 | Tool                 | What it manages                                             |
-| ---------------------- | --------------------- | ------------------------------------------------------------ |
-| Server state          | React Query          | Leagues list, season badges, loading/error states, caching  |
-| Global UI state       | React Context API    | Active language (en/pt)                                     |
-| Local/shared UI state | `useState` + lifting | Search query, pagination, selected sport, selected league    |
+| Layer                 | Tool                 | What it manages                                            |
+| --------------------- | -------------------- | ---------------------------------------------------------- |
+| Server state          | React Query          | Leagues list, season badges, loading/error states, caching |
+| Global UI state       | React Context API    | Active language (en/pt)                                    |
+| Local/shared UI state | `useState` + lifting | Search query, pagination, selected sport, selected league  |
 
 The sport filter state lives in `App.tsx` (lifted) so both the `SportNav` tabs and the dropdown inside `LeagueList` share the same value without extra complexity. React Query handles the heaviest part — async data, deduplication and caching — making a dedicated state manager unnecessary for this scope.
 
