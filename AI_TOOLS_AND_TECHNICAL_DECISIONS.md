@@ -1,4 +1,4 @@
-# AI Tools & Design Decisions
+# AI Tools & Technical Decisions
 
 ## AI Tools Used
 
