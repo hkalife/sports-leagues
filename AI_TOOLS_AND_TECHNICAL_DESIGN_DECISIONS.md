@@ -7,7 +7,7 @@
 Used throughout the development process as a coding assistant, in two contexts:
 
 - **Claude Code** — implementation: component architecture and file structure decisions, the service/hook/component layered pattern, the i18n system (dictionary-based, no external dependency), React Query caching strategy (`staleTime: Infinity`), responsive layout adjustments, and CSS animations (modal entrance, card fade-in, spinner).
-- **Claude (chat)** — used earlier to validate design ideas and UI decisions before implementation: layout choices, component structure, and visual hierarchy, including generating a mockup used as a visual reference before building the actual UI.
+- **Claude Design** — used to validate design ideas and UI decisions before implementation: layout choices, component structure, and visual hierarchy, including generating a mockup used as a visual reference before building the actual UI.
 
 ## Design Decisions
 
