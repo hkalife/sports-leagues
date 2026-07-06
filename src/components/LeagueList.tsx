@@ -86,16 +86,24 @@ export function LeagueList({
         {t('list.count', { count: filtered.length })}
       </p>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {paginated.map((league, index) => (
-          <LeagueCard
-            key={league.idLeague}
-            league={league}
-            index={index}
-            onViewBadge={onViewBadge}
-          />
-        ))}
-      </div>
+      {filtered.length === 0 ? (
+        <div className="flex flex-col items-center justify-center py-16 gap-2 text-center">
+          <span className="text-3xl">❌</span>
+          <p className="text-gray-700 font-medium">{t('list.empty')}</p>
+          <p className="text-sm text-gray-400">{t('list.emptySub')}</p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {paginated.map((league, index) => (
+            <LeagueCard
+              key={league.idLeague}
+              league={league}
+              index={index}
+              onViewBadge={onViewBadge}
+            />
+          ))}
+        </div>
+      )}
 
       {totalPages > 1 && (
         <div className="flex items-center justify-between mt-6 pt-4 border-t border-gray-100 flex-wrap gap-3">
